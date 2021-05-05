@@ -1,5 +1,6 @@
 package com.example.pokemontest.helpers;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -29,12 +30,16 @@ public class VolleyHelper {
 
     public void ApiGetMethod(){
 
+        ProgressDialog progress = ProgressDialog.show(context, "Cargando...",
+                "Por Favor Espere !", true);
+
         requestQueue = Volley.newRequestQueue(context);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 System.out.println("RESPUESTA: " + response);
                 jsonPaeser.dataReciver(response);
+                progress.dismiss();
 
             }
         }, new Response.ErrorListener() {
@@ -44,6 +49,7 @@ public class VolleyHelper {
                 if (error.getMessage() == null){
 
                     Toast.makeText(context, "ERROR 404: POKEMON NO EXISTE", Toast.LENGTH_LONG).show();
+                    progress.dismiss();
 
                 }
 
