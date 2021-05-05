@@ -2,6 +2,7 @@ package com.example.pokemontest.helpers;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -40,7 +41,11 @@ public class VolleyHelper {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Log.i("test", "error :" + error.toString());
+                if (error.getMessage() == null){
+
+                    Toast.makeText(context, "ERROR 404: POKEMON NO EXISTE", Toast.LENGTH_LONG).show();
+
+                }
 
             }
         });
